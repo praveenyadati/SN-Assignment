@@ -22,17 +22,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     override fun setUpActivityUI(data: Intent, savedInstanceState: Bundle?) {
         connectionLiveData.observe(this) {
             viewModel.isNetworkAvailable.value = it
-            if(it && isDisConnected) {
-                Snackbar.make(viewDataBinding.fragmentContainer,
-                    getString(R.string.network_success),
-                    Snackbar.LENGTH_LONG
-                ).show()
-            } else if (!it) {
-                Snackbar.make(
-                    viewDataBinding.fragmentContainer,
-                    getString(R.string.network_error),
-                    Snackbar.LENGTH_LONG
-                ).show()
+            val snackbarMsg : String? = if(it && isDisConnected) getString(R.string.network_success)
+                                else if(!it) getString(R.string.network_error) else null
+            if(snackbarMsg != null) {
+                val snackBar : Snackbar = Snackbar.make(viewDataBinding.fragmentContainer,
+                    snackbarMsg,
+                    Snackbar.LENGTH_LONG)
+                val bgColor : Int = if(!it) android.R.color.holo_red_light else android.R.color.holo_green_light
+                snackBar.view.setBackgroundColor(ContextCompat.getColor(this, bgColor))
+                snackBar.show()
             }
             isDisConnected = !it
         }
