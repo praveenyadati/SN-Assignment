@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">SN Exercise</string>
+    <string name="btn_submit">Submit</string>
+    <string name="hint_first_name">First name</string>
+    <string name="hint_last_name">Last name</string>
+    <string name="network_error">Network disconnected</string>
+    <string name="network_success">Network Connected</string>
+    <string name="error">Unable to process your request</string>
+</resources>
