@@ -6,6 +6,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
 import androidx.navigation.fragment.navArgs
+import androidx.viewpager.widget.ViewPager
 import com.servicenow.baseframework.ui.BaseFragment
 import com.servicenow.test.R
 import com.servicenow.test.databinding.FragmentJokesBinding
@@ -40,6 +41,8 @@ class JokesFragment : BaseFragment<FragmentJokesBinding>(R.layout.fragment_jokes
         val viewPager = viewDataBinding.viewPager
         viewPager.adapter = adapter
         viewPager.setCurrentItem(lastIndex)
+        viewPager.addOnPageChangeListener(onPageChangeListener)
+        activity?.supportActionBar?.setTitle("${getString(R.string.app_name)} ${lastIndex+1} / ${data.size}")
     }
 
     fun initViewModel() {
@@ -84,6 +87,15 @@ class JokesFragment : BaseFragment<FragmentJokesBinding>(R.layout.fragment_jokes
         })
     }
 
+    private val onPageChangeListener = object : ViewPager.OnPageChangeListener{
+        override fun onPageScrollStateChanged(state: Int) {}
+        override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+        override fun onPageSelected(position: Int) {
+            activity.supportActionBar?.setTitle("${getString(R.string.app_name)} ${position+1} / ${adapter?.count}")
+        }
+
+    }
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putInt(Constants.POSITION, viewDataBinding.viewPager.currentItem)
@@ -91,13 +103,11 @@ class JokesFragment : BaseFragment<FragmentJokesBinding>(R.layout.fragment_jokes
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        if (savedInstanceState != null)
-            viewDataBinding.viewPager.setCurrentItem(
-                savedInstanceState.getInt(
-                    Constants.POSITION,
-                    lastIndex
-                )
-            )
+        if (savedInstanceState != null) {
+            val currentPosition = savedInstanceState.getInt(Constants.POSITION, lastIndex)
+            viewDataBinding.viewPager.setCurrentItem(currentPosition)
+            activity.supportActionBar?.setTitle("${getString(R.string.app_name)} ${currentPosition+1} / ${adapter?.count}")
+        }
     }
 
 }

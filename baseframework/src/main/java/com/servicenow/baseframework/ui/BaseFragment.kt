@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull
 
 abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes val layoutResourceId: Int) : Fragment(layoutResourceId) {
 
-    private lateinit var activity: BaseActivity<*>
+    lateinit var activity: BaseActivity<*>
     private var bundle: Bundle? = null
     private var intent: Intent? = null
     private lateinit var mRootView: View
