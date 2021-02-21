@@ -33,6 +33,7 @@
                     android:layout_height="wrap_content"
                     android:maxLength="@{model.login.firstNameField.maxLength}"
                     android:maxLines="1"
+                    android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                     android:text="@={model.login.firstNameField.name}"
                     android:saveEnabled="false"/>
 
@@ -64,6 +65,7 @@
                     android:layout_height="wrap_content"
                     android:maxLength="@{model.login.lastNameField.maxLength}"
                     android:maxLines="1"
+                    android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                     android:text="@={model.login.lastNameField.name}"
                     android:saveEnabled="false"/>
 

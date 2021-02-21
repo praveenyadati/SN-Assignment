@@ -29,7 +29,7 @@ class LoginForm : BaseObservable() {
     }
 
     fun isValidInfutField(loginField: LoginField?) : Boolean {
-        val name = loginField?.name
+        val name = loginField?.name?.trim()
         val empty = TextUtils.isEmpty(name)
         return !empty
     }
